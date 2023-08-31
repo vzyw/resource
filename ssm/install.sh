@@ -49,7 +49,7 @@ curl -L -o "${TMP_DIR}/${BINARY_FILENAME}" "${DOWNLOAD_URL}"
 
 # 将下载的文件移动到 bin 目录
 chmod +x "${TMP_DIR}/${BINARY_FILENAME}"
-sudo mv "${TMP_DIR}/${BINARY_FILENAME}" "${BIN_DIRECTORY}/${BINARY_NAME}"
+mv "${TMP_DIR}/${BINARY_FILENAME}" "${BIN_DIRECTORY}/${BINARY_NAME}"
 
 # 清理临时文件
 rm -rf "${TMP_DIR}"

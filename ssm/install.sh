@@ -37,6 +37,10 @@ elif [ "$ARCH" == "aarch64" ]; then
 fi
 
 BINARY_FILENAME="${BINARY_NAME}_${OS}_${ARCH}"
+if [ "$OS" == "windows" ]; then
+  BINARY_FILENAME=BINARY_FILENAME".exe"
+fi
+
 
 echo "准备安装 ${BINARY_NAME} ${RELEASE_TAG}..."
 echo "检测系统环境为 ${OS} ${ARCH}..."

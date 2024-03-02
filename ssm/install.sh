@@ -11,16 +11,27 @@ if ! command -v curl &> /dev/null; then
     echo "未安装 curl，请先安装 curl。"
     exit 1
 fi
+OPENWRT=false
+if [ -f "/etc/openwrt_release" ]; then
+    OPENWRT=true
+fi
+
 
 # 请将以下变量替换为你要安装的 GitHub Release 信息
 GITHUB_REPO_OWNER="sub-store-org"
 GITHUB_REPO_NAME="Sub-Store-Manager-Cli"
 BINARY_NAME="ssm"  # 二进制文件名，不包含后缀
 BIN_DIRECTORY="/usr/local/bin"  # 安装到的目标目录
+if $OPENWRT; then
+    BIN_DIRECTORY="/usr/bin"
+fi
 RELEASE_TAG=$(curl -s "https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/releases/latest" | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
 
 # 根据操作系统类型和架构确定文件后缀
 SYS_OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+if $OPENWRT; then
+    SYS_OS=$(uname -s | tr A-Z a-z)
+fi
 OS=""
 case "$SYS_OS" in
     linux*)  OS="linux" ;;
